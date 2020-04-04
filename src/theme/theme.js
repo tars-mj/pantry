@@ -5,7 +5,8 @@ export const theme = {
   lightOrange: '#FCEADE',
   orange: '#FF8A5B',
   pink: '#EA526F',
-
+  fontLight: 300,
+  fontBold: 700,
   fontSize: {
     xxs: '1rem',
     xs: '1.2rem',

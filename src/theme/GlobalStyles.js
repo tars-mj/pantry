@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 import { theme } from './theme';
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,600');
+
   *, *::before, *::after {
     box-sizing: border-box;
 		text-rendering: optimizeLegibility;
@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-size: 1.6rem;
 		font-family: "Roboto", sans-serif;
+		
 		margin: 0;
 		padding: 0;
 		background-color: ${theme.white};
