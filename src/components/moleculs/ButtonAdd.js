@@ -16,8 +16,10 @@ const ButtonAdd = styled.button`
     transform: scale(1.2);
   }
   @media (max-width: 768px) {
-    right: calc(50% - 50px);
-    bottom: 50px;
+    right: calc(50% - 40px);
+    bottom: 60px;
+    width: 80px;
+    height: 80px;
   }
 `;
 

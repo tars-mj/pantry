@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlus,
@@ -13,6 +13,7 @@ import {
 import PageTemplate from '../templates/PageTemplate';
 import ButtonAdd from '../components/moleculs/ButtonAdd';
 import ButtonHeader from '../components/moleculs/ButtonHeader';
+import ButtonPink from '../components/moleculs/ButtonPink';
 
 const StyledWrapperPage = styled.div`
   display: grid;
@@ -24,10 +25,11 @@ const StyledHeadingPage = styled.div`
   background-color: ${({ theme }) => theme.lightOrange};
   font-size: ${({ theme }) => theme.fontSize.l};
   font-weight: ${({ theme }) => theme.fontBold};
-  padding: 20px;
+  padding: 10px;
   display: grid;
   grid-template-columns: 1fr 60px 60px;
   grid-template-rows: 1fr;
+
   align-items: center;
 `;
 
@@ -82,44 +84,6 @@ const CardFooter = styled.div`
   font-size: ${({ theme }) => theme.fontSize.m};
 
   position: relative;
-`;
-
-const ButtonPink = styled.button`
-  width: 31px;
-  height: 31px;
-  background-color: ${({ theme }) => theme.pink};
-  border: none;
-
-  transition: transform 0.15s ease-out;
-  &:hover {
-    transform: scale(1.2);
-  }
-
-  ${({ type }) =>
-    type === 'default' &&
-    css`
-      position: relative;
-      border-radius: 50%;
-    `}
-
-  ${({ type }) =>
-    type === 'minus' &&
-    css`
-      position: absolute;
-      bottom: -15px;
-      border-radius: 0 50% 50% 0;
-      right: 104px;
-    `}
-
-		${({ type }) =>
-      type === 'plus' &&
-      css`
-        position: absolute;
-        bottom: -15px;
-        border-radius: 50% 0 0 50%;
-        left: 104px;
-      `}
-
 `;
 
 const StyledWrapperButtons = styled.div`
