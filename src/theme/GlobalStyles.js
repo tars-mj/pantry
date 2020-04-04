@@ -57,6 +57,10 @@ const GlobalStyle = createGlobalStyle`
 		color: ${theme.black};
 		text-decoration: none;
 	}
+
+	.activeBtn {
+		background-color: ${theme.blackHover};
+	}
 `;
 
 export default GlobalStyle;

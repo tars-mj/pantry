@@ -4,8 +4,6 @@ import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCoffee,
-  faArrowAltCircleDown,
-  faArrowAltCircleUp,
   faCartArrowDown,
   faShoppingCart,
   faEdit,
@@ -15,6 +13,8 @@ import {
   faTh,
   faList,
 } from '@fortawesome/free-solid-svg-icons';
+import { NavLink } from 'react-router-dom';
+import { routes } from '../routes';
 
 // eslint-disable-next-line no-lone-blocks
 {
@@ -46,12 +46,6 @@ const StyledBoardLayout = styled.div`
   overflow: hidden;
   will-change: grid-template-columns;
   transition: grid-template-columns 0.25s ease-in;
-
-  /* @media only screen and (min-device-width: 375px) and (max-device-width: 800px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-    background-color: red;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 100px;
-  } */
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -99,6 +93,7 @@ const ButtonSideBar = styled.div`
   align-items: center;
   position: relative;
   color: ${({ theme }) => theme.white};
+
   &:hover {
     transition: all 0.5s;
     background-color: ${({ theme }) => theme.blackHover};
@@ -144,14 +139,14 @@ const Badge = styled.div`
 const PageTemplate = ({ children }) => (
   <StyledBoardLayout>
     <StyledSideBar>
-      <ButtonSideBar area="btn1">
+      <ButtonSideBar as={NavLink} to={routes.shoppingList} activeClassName="activeBtn" area="btn1">
         <Badge>20</Badge>
-        <FontAwesomeIcon icon={faList} />
+        <FontAwesomeIcon color="white" icon={faList} />
       </ButtonSideBar>
 
-      <ButtonSideBar area="btn2">
+      <ButtonSideBar as={NavLink} to={routes.pantry} activeClassName="activeBtn" area="btn2">
         <Badge>10</Badge>
-        <FontAwesomeIcon icon={faTh} />
+        <FontAwesomeIcon color="white" icon={faTh} />
       </ButtonSideBar>
     </StyledSideBar>
     {children}

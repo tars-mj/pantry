@@ -1,9 +1,10 @@
 import React from 'react';
+import PageTemplate from '../templates/PageTemplate';
 
 const ShoppingListPage = () => (
-  <>
-    <div>ShoppingListPage</div>
-  </>
+  <PageTemplate>
+    <div>Shopping list</div>
+  </PageTemplate>
 );
 
 export default ShoppingListPage;
