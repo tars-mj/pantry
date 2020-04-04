@@ -1,4 +1,4 @@
-export const themeSettings = {
+export const theme = {
   black: '#072626',
   blackHover: '#083333',
   white: '#FFFFFF',

@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { themeSettings } from './themeSettings';
+import { theme } from './theme';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,600');
@@ -13,13 +13,13 @@ const GlobalStyle = createGlobalStyle`
   html {
     font-size: 62.5%; 
   }
-  
+
   body {
     font-size: 1.6rem;
 		font-family: "Roboto", sans-serif;
 		margin: 0;
 		padding: 0;
-		background-color: #1d273f;
+		background-color: ${theme.white};
   }
 
   button {
@@ -38,22 +38,22 @@ const GlobalStyle = createGlobalStyle`
   }
 
 	a:link {
-		color: ${darkMode.color1.hsl};
+		color: ${theme.black};
 		text-decoration: none;
 	}
 
 	a:visited {
-		color: ${darkMode.color1.hsl};
+		color: ${theme.black};
 		text-decoration: none;
 	}
 
 	a:hover {
-		color: ${darkMode.color1.hsl};
+		color: ${theme.black};
 		text-decoration: none;
 	}
 
 	a:active {
-		color: ${darkMode.color1.hsl};
+		color: ${theme.black};
 		text-decoration: none;
 	}
 `;
