@@ -12,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import PageTemplate from '../templates/PageTemplate';
 import ButtonAdd from '../components/moleculs/ButtonAdd';
+import ButtonHeader from '../components/moleculs/ButtonHeader';
 
 const StyledWrapperPage = styled.div`
   display: grid;
@@ -119,19 +120,6 @@ const ButtonPink = styled.button`
         left: 104px;
       `}
 
-`;
-
-const ButtonHeading = styled.button`
-  width: 50px;
-  height: 50px;
-  color: ${({ theme }) => theme.blac};
-  border: none;
-  background-color: inherit;
-  transition: transform 0.15s ease-out;
-  justify-self: center;
-  &:hover {
-    transform: scale(1.2);
-  }
 `;
 
 const StyledWrapperButtons = styled.div`
@@ -247,12 +235,12 @@ const PantryPage = () => (
     <StyledWrapperPage>
       <StyledHeadingPage>
         PantryPage
-        <ButtonHeading>
+        <ButtonHeader>
           <FontAwesomeIcon size="3x" icon={faArrowAltCircleDown} />
-        </ButtonHeading>
-        <ButtonHeading>
+        </ButtonHeader>
+        <ButtonHeader>
           <FontAwesomeIcon size="3x" icon={faArrowAltCircleUp} />
-        </ButtonHeading>
+        </ButtonHeader>
       </StyledHeadingPage>
 
       <StyledContent>

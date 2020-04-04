@@ -1,10 +1,10 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const ButtonAdd = styled.button`
   width: 100px;
   height: 100px;
   background-color: ${({ theme }) => theme.pink};
-  border: none;
+  border: 5px solid #fff;
   border-radius: 50%;
   position: fixed;
   bottom: 20px;
@@ -14,6 +14,10 @@ const ButtonAdd = styled.button`
   transition: transform 0.15s ease-out;
   &:hover {
     transform: scale(1.2);
+  }
+  @media (max-width: 768px) {
+    right: calc(50% - 50px);
+    bottom: 50px;
   }
 `;
 
