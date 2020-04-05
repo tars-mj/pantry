@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const MainInput = styled.input.attrs((props) => ({
   type: props.type || 'search',
-  placeholder: 'props.title',
+  placeholder: props.title,
   autoComplete: 'off',
 }))`
   font-size: ${({ theme }) => theme.fontSize.s};
