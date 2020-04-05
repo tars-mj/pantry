@@ -3,21 +3,24 @@ import React, { createContext, useReducer, useEffect } from 'react';
 export const DataContext = createContext();
 
 // Initial state
-let initialState = {
-  isLoading: false,
-  pantry: [],
-  shoppingList: [],
-  selectedProducts: [],
+const initialState = () => {
+  console.log(JSON.parse(window.localStorage.getItem('pantry')));
+  return {
+    isLoading: false,
+    pantry: JSON.parse(window.localStorage.getItem('pantry')) || [],
+    shoppingList: JSON.parse(window.localStorage.getItem('shoppingList')) || [],
+    selectedProducts: JSON.parse(window.localStorage.getItem('selectedProducts')) || [],
+  };
 };
 
-if (typeof window.localStorage !== 'undefined') {
-  initialState = {
-    pantry: JSON.parse(window.localStorage.getItem('pantry')),
-    shoppingList: JSON.parse(window.localStorage.getItem('shoppingList')),
-    selectedProducts: JSON.parse(window.localStorage.getItem('selectedProducts')),
-    isLoading: false,
-  };
-}
+// if (typeof window.localStorage !== 'undefined') {
+//   initialState = {
+//     pantry: JSON.parse(window.localStorage.getItem('pantry')),
+//     shoppingList: JSON.parse(window.localStorage.getItem('shoppingList')),
+//     selectedProducts: JSON.parse(window.localStorage.getItem('selectedProducts')),
+//     isLoading: false,
+//   };
+// }
 
 // Constants
 const SET_AUTHORIZATION = 'SET_AUTHORIZATION';
@@ -131,7 +134,7 @@ const reducer = (state, action) => {
 };
 
 const DataProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState());
 
   // Actions
   const setQuantityProductPantry = ({ id, value }) => {

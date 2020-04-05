@@ -29,7 +29,7 @@ const ProductForm = ({ productToEdit, onCloseModal }) => {
     if (isNaN(value)) {
       return 'Required number!';
     }
-    if (value > max) {
+    if (Number(value) > max) {
       return 'Min value must be smaller than max value!';
     }
   };

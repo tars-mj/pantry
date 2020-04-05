@@ -3,13 +3,13 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBMUNfDqZuOdkKm18GnPBwCHLcIkve9tE4',
-  authDomain: 'pantry-8e8b9.firebaseapp.com',
-  databaseURL: 'https://pantry-8e8b9.firebaseio.com',
-  projectId: 'pantry-8e8b9',
-  storageBucket: 'pantry-8e8b9.appspot.com',
-  messagingSenderId: '635803579841',
-  appId: '1:635803579841:web:157b8bbe31014ba9eb6b40',
+  apiKey: 'AIzaSyAk7MhJWl_D1IeGc_ujwlc9s8bMiJ4wFq8',
+  authDomain: 'pantry-e461a.firebaseapp.com',
+  databaseURL: 'https://pantry-e461a.firebaseio.com',
+  projectId: 'pantry-e461a',
+  storageBucket: 'pantry-e461a.appspot.com',
+  messagingSenderId: '405837585702',
+  appId: '1:405837585702:web:8cf0649bbd4c09778c35e7',
 };
 
 // Initialize Firebase
