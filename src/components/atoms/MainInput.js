@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 const MainInput = styled.input.attrs((props) => ({
-  type: props.type || 'text',
-  placeholder: props.title,
+  type: props.type || 'search',
+  placeholder: 'props.title',
+  autoComplete: 'off',
 }))`
   font-size: ${({ theme }) => theme.fontSize.s};
   color: ${({ theme }) => theme.black};

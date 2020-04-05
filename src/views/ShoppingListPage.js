@@ -131,6 +131,17 @@ const StyledIconCheck = styled.div`
   align-self: center;
 `;
 
+const StyledMain = styled.div`
+  grid-area: main;
+  height: 100vh;
+  overflow: scroll;
+
+  @media (max-width: 768px) {
+    height: calc(100vh - 100px);
+    overflow: hidden;
+  }
+`;
+
 const ShoppingListPage = () => {
   const {
     selectedProducts,
@@ -164,7 +175,7 @@ const ShoppingListPage = () => {
 
   return (
     <PageTemplate>
-      <>
+      <StyledMain>
         <StyledWrapperPage>
           <StyledHeadingPage>
             Shopping list
@@ -198,7 +209,7 @@ const ShoppingListPage = () => {
             <StyleContentModal>Are you sure want to finish shopping?</StyleContentModal>
           </Modal>
         )}
-      </>
+      </StyledMain>
     </PageTemplate>
   );
 };

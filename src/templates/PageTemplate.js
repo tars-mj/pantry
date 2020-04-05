@@ -19,7 +19,7 @@ const StyledBoardLayout = styled.div`
   grid-template-areas: 'menu main';
 
   background-color: ${({ theme }) => theme.white};
-  overflow: hidden;
+
   will-change: grid-template-columns;
   transition: grid-template-columns 0.25s ease-in;
 
@@ -34,7 +34,7 @@ const StyledBoardLayout = styled.div`
 
 const StyledSideBar = styled.div`
   grid-area: menu;
-  overflow: hidden;
+
   background-color: ${({ theme }) => theme.black};
   display: grid;
   grid-template-columns: 1fr;
