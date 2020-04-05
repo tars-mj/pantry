@@ -75,7 +75,7 @@ const PantryPage = () => {
 
           <StyledContent>
             {pantry.length === 0
-              ? 'Lista jest pusta'
+              ? 'The list is empty'
               : pantry.map((product) => <ProductCard key={product.id} product={product} />)}
           </StyledContent>
         </StyledWrapperPage>

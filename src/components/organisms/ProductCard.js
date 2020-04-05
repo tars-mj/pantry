@@ -147,11 +147,11 @@ const ProductCard = ({ product }) => {
   valueInPercent = valueInPercent >= 130 ? '200px' : `${valueInPercent}%`;
 
   const increaseQuantityProduct = () => {
-    setQuantityProductPantry({ id: product.id, value: actualValue + 1 });
+    setQuantityProductPantry({ id: product.id, value: Number(actualValue) + 1 });
   };
 
   const decreaseQuantityProduct = () => {
-    setQuantityProductPantry({ id: product.id, value: actualValue - 1 });
+    setQuantityProductPantry({ id: product.id, value: Number(actualValue) - 1 });
   };
 
   return (

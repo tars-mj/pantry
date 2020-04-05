@@ -188,7 +188,7 @@ const ShoppingListPage = () => {
 
           <StyledContent>
             {shoppingList.length === 0
-              ? 'Lista jest pusta'
+              ? 'The list is empty'
               : shoppingList.map((product) => (
                   <ProductToBuy
                     key={product.id}
