@@ -12,9 +12,10 @@ import {
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import PageTemplate from '../templates/PageTemplate';
-import ButtonAdd from '../components/moleculs/ButtonAdd';
-import ButtonHeader from '../components/moleculs/ButtonHeader';
-import ButtonPink from '../components/moleculs/ButtonPink';
+import ButtonAdd from '../components/atoms/ButtonAdd';
+import ButtonHeader from '../components/atoms/ButtonHeader';
+import ButtonPink from '../components/atoms/ButtonPink';
+import MainButton from '../components/atoms/MainButton';
 
 const StyledWrapperPage = styled.div`
   display: grid;
@@ -97,129 +98,6 @@ const StyledIconCheck = styled.div`
   justify-self: center;
   align-self: center;
 `;
-
-const MainButton = styled.button`
-  width: 220px;
-  height: 40px;
-  color: ${({ theme }) => theme.white};
-  font-weight: ${({ theme }) => theme.fontBold};
-  font-size: ${({ theme }) => theme.fontSize.m};
-  background-color: ${({ theme }) => theme.pink};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 15px;
-  padding-right: 15px;
-  border: none;
-  border-radius: 20px;
-  &:focus {
-    outline: 0;
-  }
-`;
-
-const StyledModalWrapper = styled.div`
-  background-color: white;
-  padding: 10px;
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: grayscale(1) blur(2px);
-
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StyledModalCard = styled.div`
-  width: 800px;
-  height: 80vh;
-  background-color: ${({ theme }) => theme.white};
-  border-radius: 50px;
-  box-shadow: 0 30px 60px -5px hsla(0, 0%, 0%, 0.2);
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 100px auto 80px;
-  justify-items: center;
-`;
-
-const StyledModalHeader = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: ${({ theme }) => theme.lightOrange};
-  border-radius: 50px;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: auto 40px;
-  align-items: center;
-  color: ${({ theme }) => theme.black};
-  font-weight: ${({ theme }) => theme.fontBold};
-  font-size: ${({ theme }) => theme.fontSize.m};
-`;
-
-const StyledContentModal = styled.div`
-  width: 90%;
-
-  height: 100%;
-  padding: 20px;
-`;
-
-const MainInput = styled.input.attrs((props) => ({
-  type: props.type || 'text',
-  placeholder: props.title,
-}))`
-  font-size: ${({ theme }) => theme.fontSize.s};
-  color: ${({ theme }) => theme.black};
-  width: ${({ width }) => width || '100%'};
-  height: ${({ height }) => height || '35px'};
-  border: 0px;
-  border-radius: 5px;
-  caret-color: ${({ theme }) => theme.black};
-  padding-left: 10px;
-  background-color: ${({ theme }) => theme.white};
-  justify-self: self-start;
-  box-shadow: 0px 5px 10px -5px hsla(0, 0%, 0%, 0.2);
-  &:hover::placeholder {
-    color: ${({ theme }) => theme.black};
-    transition: opacity 0.5s ease-out;
-  }
-  &::placeholder {
-    opacity: 1;
-    color: ${({ theme }) => '#ccc'};
-    transition: opacity 0.5s ease-out;
-  }
-  &:focus {
-    outline: none;
-  }
-  &:focus::placeholder {
-    opacity: 0;
-  }
-`;
-
-const Modal = ({ closeModalFn }) => (
-  <StyledModalWrapper>
-    {/* <button className={styles.closeButton} onClick={closeModalFn} /> */}
-    <StyledModalCard>
-      <StyledModalHeader>
-        Dodaj do spiarnii
-        <ButtonPink>
-          <FontAwesomeIcon size="1x" color="white" icon={faTimes} />
-        </ButtonPink>
-      </StyledModalHeader>
-      <StyledContentModal>
-        <MainInput title="Nazwa produktu" />
-      </StyledContentModal>
-
-      <MainButton>
-        Add to pantry
-        <FontAwesomeIcon color="white" icon={faTh} />
-      </MainButton>
-    </StyledModalCard>
-  </StyledModalWrapper>
-);
 
 const ShoppingListPage = () => (
   <PageTemplate>

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import {
   faPlus,
   faMinus,
@@ -11,10 +12,15 @@ import {
   faArrowAltCircleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import PageTemplate from '../templates/PageTemplate';
-import ButtonAdd from '../components/moleculs/ButtonAdd';
-import ButtonHeader from '../components/moleculs/ButtonHeader';
-import ButtonPink from '../components/moleculs/ButtonPink';
+import ButtonAdd from '../components/atoms/ButtonAdd';
+import ButtonHeader from '../components/atoms/ButtonHeader';
+import ButtonPink from '../components/atoms/ButtonPink';
 import { DataContext } from '../context/DataContext';
+import Modal from '../components/moleculs/Modal';
+import MainButton from '../components/atoms/MainButton';
+
+import ProductForm from '../components/moleculs/ProductForm';
+
 const StyledWrapperPage = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -35,6 +41,12 @@ const StyledHeadingPage = styled.div`
 
 const StyledContent = styled.div`
   padding: 30px;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 270px);
+  grid-gap: 50px;
+  grid-auto-rows: 270px;
+  overflow: hidden;
 `;
 
 const StyledWrapperCard = styled.div`
@@ -143,27 +155,48 @@ const DescriptionStatus = styled.div`
   left: ${({ side }) => `calc(${side === 'min' ? '30%' : '70%'} - 1.2rem)`};
 `;
 
-const ProductCard = () => {
-  const minValue = 5;
-  const maxValue = 30;
-  const actualValue = 28;
-  const unit = 'kg';
+const StyleContentModal = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const ProductCard = ({ product }) => {
+  const { setQuantityProductPantry, removeProductPantry } = useContext(DataContext);
+  const [isModalRemoveProduct, setModalRemoveProduct] = useState(false);
+  const [isModalEditProduct, setModalEditProduct] = useState(false);
+
+  const minValue = product.min;
+  const maxValue = product.max;
+  const actualValue = product.quantity;
+  const { unit } = product;
   let valueInPercent = (actualValue * 100) / maxValue;
   const isTooHigh = valueInPercent > 100 ? true : false;
   valueInPercent = valueInPercent >= 130 ? '200px' : `${valueInPercent}%`;
 
+  const increaseQuantityProduct = () => {
+    setQuantityProductPantry({ id: product.id, value: actualValue + 1 });
+  };
+
+  const decreaseQuantityProduct = () => {
+    setQuantityProductPantry({ id: product.id, value: actualValue - 1 });
+  };
+
   return (
     <StyledWrapperCard>
       <CardHeader>
-        Mąka
+        {product.productName}
         <StyledWrapperButtons>
           <ButtonPink type="default">
             <FontAwesomeIcon color="white" icon={faShoppingCart} />
           </ButtonPink>
-          <ButtonPink type="default">
+          <ButtonPink onClick={() => setModalEditProduct(true)} type="default">
             <FontAwesomeIcon color="white" icon={faEdit} />
           </ButtonPink>
-          <ButtonPink type="default">
+          <ButtonPink onClick={() => setModalRemoveProduct(true)} type="default">
             <FontAwesomeIcon color="white" icon={faTrashAlt} />
           </ButtonPink>
         </StyledWrapperButtons>
@@ -183,26 +216,44 @@ const ProductCard = () => {
         </ProductBar>
       </CardContent>
       <CardFooter>
-        <ButtonPink type="minus">
-          <FontAwesomeIcon color="white" icon={faMinus} />
-        </ButtonPink>
-        <ButtonPink type="plus">
+        <ButtonPink onClick={() => increaseQuantityProduct()} type="plus">
           <FontAwesomeIcon color="white" icon={faPlus} />
         </ButtonPink>
+        <ButtonPink onClick={() => decreaseQuantityProduct()} type="minus">
+          <FontAwesomeIcon color="white" icon={faMinus} />
+        </ButtonPink>
       </CardFooter>
+      {isModalRemoveProduct && (
+        <Modal
+          title="Remove product"
+          closeModalFn={() => setModalRemoveProduct(false)}
+          btn={<MainButton onClick={() => removeProductPantry({ id: product.id })}>Tak</MainButton>}
+        >
+          <StyleContentModal>Are you sure want to remove existing</StyleContentModal>
+        </Modal>
+      )}
+      {isModalEditProduct && (
+        <Modal title="Edit product" closeModalFn={() => setModalEditProduct(false)}>
+          <StyleContentModal>
+            <ProductForm productToEdit={product} onCloseModal={() => setModalEditProduct(false)} />
+            {/* {Object.keys(product).map((x) => x !== 'id' && <MainInput onChange={()} title={x} />)} */}
+          </StyleContentModal>
+        </Modal>
+      )}
     </StyledWrapperCard>
   );
 };
 
 const PantryPage = () => {
   const { pantry } = useContext(DataContext);
+  const [isModalAdd, setModalAdd] = useState(false);
 
   return (
     <PageTemplate>
       <>
         <StyledWrapperPage>
           <StyledHeadingPage>
-            PantryPage {console.log('pantry: ', pantry)}
+            My pantry
             <ButtonHeader>
               <FontAwesomeIcon size="3x" icon={faArrowAltCircleDown} />
             </ButtonHeader>
@@ -212,12 +263,20 @@ const PantryPage = () => {
           </StyledHeadingPage>
 
           <StyledContent>
-            <ProductCard />
+            {pantry && pantry.map((product) => <ProductCard key={product.id} product={product} />)}
           </StyledContent>
         </StyledWrapperPage>
-        <ButtonAdd>
+        <ButtonAdd onClick={() => setModalAdd(true)}>
           <FontAwesomeIcon size="3x" color="white" icon={faPlus} />
         </ButtonAdd>
+        {isModalAdd && (
+          <Modal closeModalFn={() => setModalAdd(false)} title="Add product to pantry">
+            <StyleContentModal>
+              <ProductForm addNewProduct onCloseModal={setModalAdd} />
+              {/* {Object.keys(product).map((x) => x !== 'id' && <MainInput onChange={()} title={x} />)} */}
+            </StyleContentModal>
+          </Modal>
+        )}
       </>
     </PageTemplate>
   );
