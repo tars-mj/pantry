@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import styled from 'styled-components';
 import MainInput from '../atoms/MainInput';
 import MainButton from '../atoms/MainButton';
 import { AuthContext } from '../../context/AuthContext';
-import { auth } from '../../services/firebase';
-import styled from 'styled-components';
+import { auth, db } from '../../services/firebase';
 import { routes } from '../../routes';
 
 const StyledBtn = styled.div`
@@ -28,6 +28,7 @@ const LoginForm = ({ isRegister }) => {
           setAuthorization({ isAuthorized: true });
           history.push(routes.pantry);
         })
+
         .catch((error) => {
           alert(error);
         });
@@ -35,10 +36,19 @@ const LoginForm = ({ isRegister }) => {
     if (isRegister) {
       auth
         .createUserWithEmailAndPassword(values.email, values.password)
+        // .then((data) => {
+        //   console.log('uid', data.user.uid);
+        //   return db.collection('users').doc(data.user.uid).set({
+        //     pantry: [],
+        //     shoppingList: [],
+        //     selectedProducts: [],
+        //   });
+        // })
         .then((data) => {
           setAuthorization({ isAuthorized: true });
           history.push(routes.pantry);
         })
+
         .catch((error) => alert(error));
     }
   };

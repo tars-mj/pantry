@@ -1,51 +1,23 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 
 export const DataContext = createContext();
 
 // Initial state
-const initialState = {
+let initialState = {
   isLoading: false,
-  pantry: [
-    {
-      id: 'asdsad7d8sadddasd86',
-      productName: 'Cukier',
-      unit: 'kg',
-      min: 4,
-      max: 10,
-      description: '',
-      quantity: 12,
-    },
-    {
-      id: 'sasdsad7ddd8sdsdsd86',
-      productName: 'Mąka',
-      unit: 'kg',
-      min: 10,
-      max: 20,
-      description: '',
-      quantity: 14,
-    },
-    {
-      id: 'ssdasdsad7d8sdsdsd86',
-      productName: 'Woda',
-      unit: 'l',
-      min: 10,
-      max: 30,
-      description: '',
-      quantity: 5,
-    },
-    {
-      id: 'asdsad7d8ssddsdsd86',
-      productName: 'Banany',
-      unit: 'szt',
-      min: 6,
-      max: 12,
-      description: '',
-      quantity: 15,
-    },
-  ],
+  pantry: [],
   shoppingList: [],
   selectedProducts: [],
 };
+
+if (typeof window.localStorage !== 'undefined') {
+  initialState = {
+    pantry: JSON.parse(window.localStorage.getItem('pantry')),
+    shoppingList: JSON.parse(window.localStorage.getItem('shoppingList')),
+    selectedProducts: JSON.parse(window.localStorage.getItem('selectedProducts')),
+    isLoading: false,
+  };
+}
 
 // Constants
 const SET_AUTHORIZATION = 'SET_AUTHORIZATION';
@@ -59,6 +31,7 @@ const SET_SELECTED_PRODUCTS = 'SET_SELECTED_PRODUCTS';
 const CLEAR_SHOPPING_LIST = 'CLEAR_SHOPPING_LIST';
 const REMOVE_FROM_SHOPPING_LIST = 'REMOVE_FROM_SHOPPING_LIST';
 const UPDATE_QUANTITY_ON_LIST = 'UPDATE_QUANTITY_ON_LIST';
+const INITIAL_STATE = 'INITIAL_STATE';
 
 // Reducer
 const reducer = (state, action) => {
@@ -150,6 +123,8 @@ const reducer = (state, action) => {
           }),
         ],
       };
+    case INITIAL_STATE:
+      return { ...state, [action.payload.name]: action.payload.stateApp };
     default:
       throw new Error();
   }
@@ -159,10 +134,6 @@ const DataProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // Actions
-  const setAuthorization = ({ isAuthorized }) => {
-    dispatch({ type: SET_AUTHORIZATION, payload: { isAuthorized } });
-  };
-
   const setQuantityProductPantry = ({ id, value }) => {
     dispatch({
       type: SET_QUANTITY_PRODUCT_PANTRY,
@@ -264,6 +235,24 @@ const DataProvider = ({ children }) => {
       },
     });
   };
+
+  const setInitialState = ({ name, stateApp }) => {
+    dispatch({
+      type: INITIAL_STATE,
+      payload: {
+        name,
+        stateApp,
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (typeof window.localStorage !== 'undefined') {
+      window.localStorage.setItem('pantry', JSON.stringify(state.pantry));
+      window.localStorage.setItem('shoppingList', JSON.stringify(state.shoppingList));
+      window.localStorage.setItem('selectedProducts', JSON.stringify(state.selectedProducts));
+    }
+  }, [state.pantry, state.shoppingList, state.selectedProducts]);
 
   return (
     <DataContext.Provider
