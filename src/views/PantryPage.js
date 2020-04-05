@@ -8,18 +8,15 @@ import {
   faTrashAlt,
   faEdit,
   faShoppingCart,
-  faArrowAltCircleDown,
-  faArrowAltCircleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import PageTemplate from '../templates/PageTemplate';
 import ButtonAdd from '../components/atoms/ButtonAdd';
-import ButtonHeader from '../components/atoms/ButtonHeader';
 import ButtonPink from '../components/atoms/ButtonPink';
 import { DataContext } from '../context/DataContext';
 import Modal from '../components/moleculs/Modal';
 import MainButton from '../components/atoms/MainButton';
-
 import ProductForm from '../components/moleculs/ProductForm';
+import AddToListForm from '../components/moleculs/AddToListForm';
 
 const StyledWrapperPage = styled.div`
   display: grid;
@@ -42,11 +39,16 @@ const StyledHeadingPage = styled.div`
 const StyledContent = styled.div`
   padding: 30px;
   max-width: 100%;
+  height: calc(100vh-80px);
   display: grid;
   grid-template-columns: repeat(auto-fit, 270px);
   grid-gap: 50px;
   grid-auto-rows: 270px;
-  overflow: hidden;
+  overflow: scroll;
+
+  @media (max-width: 768px) {
+    height: calc(100vh - 100px - 80px);
+  }
 `;
 
 const StyledWrapperCard = styled.div`
@@ -168,6 +170,7 @@ const ProductCard = ({ product }) => {
   const { setQuantityProductPantry, removeProductPantry } = useContext(DataContext);
   const [isModalRemoveProduct, setModalRemoveProduct] = useState(false);
   const [isModalEditProduct, setModalEditProduct] = useState(false);
+  const [isModalBuy, setModalBuy] = useState(false);
 
   const minValue = product.min;
   const maxValue = product.max;
@@ -190,7 +193,7 @@ const ProductCard = ({ product }) => {
       <CardHeader>
         {product.productName}
         <StyledWrapperButtons>
-          <ButtonPink type="default">
+          <ButtonPink onClick={() => setModalBuy(true)} type="default">
             <FontAwesomeIcon color="white" icon={faShoppingCart} />
           </ButtonPink>
           <ButtonPink onClick={() => setModalEditProduct(true)} type="default">
@@ -223,11 +226,16 @@ const ProductCard = ({ product }) => {
           <FontAwesomeIcon color="white" icon={faMinus} />
         </ButtonPink>
       </CardFooter>
+      {isModalBuy && (
+        <Modal title="Add product to list" closeModalFn={() => setModalBuy(false)}>
+          <AddToListForm productToEdit={product} onCloseModal={() => setModalBuy(false)} />
+        </Modal>
+      )}
       {isModalRemoveProduct && (
         <Modal
           title="Remove product"
           closeModalFn={() => setModalRemoveProduct(false)}
-          btn={<MainButton onClick={() => removeProductPantry({ id: product.id })}>Tak</MainButton>}
+          btn={<MainButton onClick={() => removeProductPantry({ id: product.id })}>Yes</MainButton>}
         >
           <StyleContentModal>Are you sure want to remove existing</StyleContentModal>
         </Modal>
@@ -236,7 +244,6 @@ const ProductCard = ({ product }) => {
         <Modal title="Edit product" closeModalFn={() => setModalEditProduct(false)}>
           <StyleContentModal>
             <ProductForm productToEdit={product} onCloseModal={() => setModalEditProduct(false)} />
-            {/* {Object.keys(product).map((x) => x !== 'id' && <MainInput onChange={()} title={x} />)} */}
           </StyleContentModal>
         </Modal>
       )}
@@ -252,18 +259,12 @@ const PantryPage = () => {
     <PageTemplate>
       <>
         <StyledWrapperPage>
-          <StyledHeadingPage>
-            My pantry
-            <ButtonHeader>
-              <FontAwesomeIcon size="3x" icon={faArrowAltCircleDown} />
-            </ButtonHeader>
-            <ButtonHeader>
-              <FontAwesomeIcon size="3x" icon={faArrowAltCircleUp} />
-            </ButtonHeader>
-          </StyledHeadingPage>
+          <StyledHeadingPage>My pantry</StyledHeadingPage>
 
           <StyledContent>
-            {pantry && pantry.map((product) => <ProductCard key={product.id} product={product} />)}
+            {pantry.length === 0
+              ? 'Lista jest pusta'
+              : pantry.map((product) => <ProductCard key={product.id} product={product} />)}
           </StyledContent>
         </StyledWrapperPage>
         <ButtonAdd onClick={() => setModalAdd(true)}>

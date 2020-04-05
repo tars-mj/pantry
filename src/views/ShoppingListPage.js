@@ -1,21 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faPlus,
-  faArrowAltCircleUp,
-  faCheck,
-  faEdit,
-  faTrashAlt,
-  faClipboardCheck,
-  faTh,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEdit, faTrashAlt, faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
+import { DataContext } from '../context/DataContext';
+import Modal from '../components/moleculs/Modal';
 import PageTemplate from '../templates/PageTemplate';
-import ButtonAdd from '../components/atoms/ButtonAdd';
-import ButtonHeader from '../components/atoms/ButtonHeader';
 import ButtonPink from '../components/atoms/ButtonPink';
 import MainButton from '../components/atoms/MainButton';
+import AddToListForm from '../components/moleculs/AddToListForm';
 
 const StyledWrapperPage = styled.div`
   display: grid;
@@ -75,23 +67,63 @@ const StyledProductToBuy = styled.div`
     `}
 `;
 
-const ProductToBuy = () => {
-  const [isSelected, setSelected] = useState(false);
+const StyleContentModal = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const ProductToBuy = (props) => {
+  const [isModalRemoveProduct, setModalRemoveProduct] = useState(false);
+  const [isModalBuy, setModalBuy] = useState(false);
+  const { data, isSelected, removeFromShoppingList } = props;
+
+  const remove = (e) => {
+    e.stopPropagation();
+    setModalRemoveProduct(true);
+  };
+
+  const edit = (e) => {
+    e.stopPropagation();
+    setModalBuy(true);
+  };
+
   return (
-    <StyledProductToBuy isSelected={isSelected}>
-      {isSelected && (
-        <StyledIconCheck>
-          <FontAwesomeIcon color="white" size="2x" icon={faCheck} />
-        </StyledIconCheck>
+    <>
+      <StyledProductToBuy isSelected={isSelected} {...props}>
+        {isSelected && (
+          <StyledIconCheck>
+            <FontAwesomeIcon color="white" size="2x" icon={faCheck} />
+          </StyledIconCheck>
+        )}
+        {`${data.productName} - ${data.quantity}${data.unit}`}
+        <ButtonPink onClick={(e) => edit(e)}>
+          <FontAwesomeIcon size="1x" color="white" icon={faEdit} />
+        </ButtonPink>
+        <ButtonPink onClick={(e) => remove(e)}>
+          <FontAwesomeIcon size="1x" color="white" icon={faTrashAlt} />
+        </ButtonPink>
+      </StyledProductToBuy>
+      {isModalRemoveProduct && (
+        <Modal
+          title="Remove product"
+          closeModalFn={() => setModalRemoveProduct(false)}
+          btn={<MainButton onClick={() => removeFromShoppingList({ id: data.id })}>Yes</MainButton>}
+        >
+          <StyleContentModal>
+            Are you sure want to remove existing product from shopping list?
+          </StyleContentModal>
+        </Modal>
       )}
-      Mąka
-      <ButtonPink>
-        <FontAwesomeIcon size="1x" color="white" icon={faEdit} />
-      </ButtonPink>
-      <ButtonPink>
-        <FontAwesomeIcon size="1x" color="white" icon={faTrashAlt} />
-      </ButtonPink>
-    </StyledProductToBuy>
+      {isModalBuy && (
+        <Modal title="Edit quantity" closeModalFn={() => setModalBuy(false)}>
+          <AddToListForm isEdit productToEdit={data} onCloseModal={() => setModalBuy(false)} />
+        </Modal>
+      )}
+    </>
   );
 };
 const StyledIconCheck = styled.div`
@@ -99,28 +131,76 @@ const StyledIconCheck = styled.div`
   align-self: center;
 `;
 
-const ShoppingListPage = () => (
-  <PageTemplate>
-    <>
-      <StyledWrapperPage>
-        <StyledHeadingPage>
-          Shopping list
-          <MainButton>
-            Finish shopping
-            <FontAwesomeIcon color="white" icon={faClipboardCheck} />
-          </MainButton>
-        </StyledHeadingPage>
+const ShoppingListPage = () => {
+  const {
+    selectedProducts,
+    setSelectedProducts,
+    shoppingList,
+    updatePantryWithShoppingList,
+    clearShoppingList,
+    removeFromShoppingList,
+  } = useContext(DataContext);
+  const [isModalFinish, setModalFinish] = useState(false);
 
-        <StyledContent>
-          <ProductToBuy />
-        </StyledContent>
-      </StyledWrapperPage>
-      <ButtonAdd>
-        <FontAwesomeIcon size="3x" color="white" icon={faPlus} />
-      </ButtonAdd>
-      {/* <Modal /> */}
-    </>
-  </PageTemplate>
-);
+  const addToSelected = (product) => {
+    if (!selectedProducts.find((x) => x.id === product.id)) {
+      setSelectedProducts({ products: [...selectedProducts, product] });
+    } else {
+      setSelectedProducts({ products: selectedProducts.filter((x) => x.id !== product.id) });
+    }
+  };
+
+  const checkSelected = (id) => {
+    return selectedProducts.find((x) => x.id === id);
+  };
+
+  const finishShopping = () => {
+    updatePantryWithShoppingList({
+      productsToUpdate: selectedProducts,
+    });
+    setModalFinish(false);
+    clearShoppingList();
+  };
+
+  return (
+    <PageTemplate>
+      <>
+        <StyledWrapperPage>
+          <StyledHeadingPage>
+            Shopping list
+            <MainButton isIcon onClick={() => setModalFinish(true)}>
+              Finish shopping
+              <FontAwesomeIcon color="white" icon={faClipboardCheck} />
+            </MainButton>
+          </StyledHeadingPage>
+
+          <StyledContent>
+            {shoppingList.length === 0
+              ? 'Lista jest pusta'
+              : shoppingList.map((product) => (
+                  <ProductToBuy
+                    key={product.id}
+                    data={product}
+                    isSelected={checkSelected(product.id)}
+                    onClick={() => addToSelected({ id: product.id, quantity: product.quantity })}
+                    removeFromShoppingList={removeFromShoppingList}
+                  />
+                ))}
+          </StyledContent>
+        </StyledWrapperPage>
+
+        {isModalFinish && (
+          <Modal
+            title="Finish shopping"
+            closeModalFn={() => setModalFinish(false)}
+            btn={<MainButton onClick={() => finishShopping()}>Yes</MainButton>}
+          >
+            <StyleContentModal>Are you sure want to finish shopping?</StyleContentModal>
+          </Modal>
+        )}
+      </>
+    </PageTemplate>
+  );
+};
 
 export default ShoppingListPage;

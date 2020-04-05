@@ -2,34 +2,10 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCoffee,
-  faCartArrowDown,
-  faShoppingCart,
-  faEdit,
-  faCheck,
-  faBars,
-  faTrashAlt,
-  faTh,
-  faList,
-} from '@fortawesome/free-solid-svg-icons';
+import { faTh, faList } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import { routes } from '../routes';
-
-// eslint-disable-next-line no-lone-blocks
-{
-  /* <FontAwesomeIcon color="green" icon={faCoffee} />    
-<FontAwesomeIcon color="green" icon={faArrowAltCircleDown} />
-<FontAwesomeIcon color="green" icon={faArrowAltCircleUp} />
-<FontAwesomeIcon color="green" icon={faCartArrowDown} />
-<FontAwesomeIcon color="green" icon={faShoppingCart} />
-<FontAwesomeIcon color="green" icon={faEdit} />
-<FontAwesomeIcon color="green" icon={faCheck} />
-<FontAwesomeIcon color="green" icon={faBars} />
-<FontAwesomeIcon color="green" icon={faTrashAlt} />
-<FontAwesomeIcon color="green" icon={faTh} />
-<FontAwesomeIcon color="green" icon={faList} /> */
-}
+import { DataContext } from '../context/DataContext';
 
 const StyledBoardLayout = styled.div`
   margin: 0;
@@ -136,22 +112,38 @@ const Badge = styled.div`
   }
 `;
 
-const PageTemplate = ({ children }) => (
-  <StyledBoardLayout>
-    <StyledSideBar>
-      <ButtonSideBar as={NavLink} to={routes.shoppingList} activeClassName="activeBtn" area="btn1">
-        <Badge>20</Badge>
-        <FontAwesomeIcon color="white" icon={faList} />
-      </ButtonSideBar>
+const UserIcon = styled.div`
+  width: 100%;
+  height: 100%;
+  grid-area: user;
+`;
 
-      <ButtonSideBar as={NavLink} to={routes.pantry} activeClassName="activeBtn" area="btn2">
-        <Badge>10</Badge>
-        <FontAwesomeIcon color="white" icon={faTh} />
-      </ButtonSideBar>
-    </StyledSideBar>
-    {children}
-  </StyledBoardLayout>
-);
+const PageTemplate = ({ children }) => {
+  const { pantry, shoppingList } = useContext(DataContext);
+
+  return (
+    <StyledBoardLayout>
+      <StyledSideBar>
+        <ButtonSideBar
+          as={NavLink}
+          to={routes.shoppingList}
+          activeClassName="activeBtn"
+          area="btn1"
+        >
+          <Badge>{shoppingList.length}</Badge>
+          <FontAwesomeIcon color="white" icon={faList} />
+        </ButtonSideBar>
+
+        <ButtonSideBar as={NavLink} to={routes.pantry} activeClassName="activeBtn" area="btn2">
+          <Badge>{pantry.length}</Badge>
+          <FontAwesomeIcon color="white" icon={faTh} />
+        </ButtonSideBar>
+        <UserIcon />
+      </StyledSideBar>
+      {children}
+    </StyledBoardLayout>
+  );
+};
 
 PageTemplate.propTypes = {
   children: PropTypes.element.isRequired,

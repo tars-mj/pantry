@@ -34,16 +34,6 @@ const ProductForm = ({ productToEdit, onCloseModal }) => {
     }
   };
 
-  const validateMax = (value) => {
-    const { min } = getValues();
-    if (isNaN(value)) {
-      return 'Required number!';
-    }
-    if (value < min) {
-      return 'Max value must be greater than min value!';
-    }
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {/* <input
@@ -91,7 +81,7 @@ const ProductForm = ({ productToEdit, onCloseModal }) => {
         defaultValue={productToEdit && productToEdit.max}
         ref={register({
           required: 'Required',
-          validate: (value) => validateMax(value),
+          validate: (value) => !isNaN(value) || 'Required number!',
         })}
         isError={errors.max}
       />
