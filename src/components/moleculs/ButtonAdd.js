@@ -10,6 +10,7 @@ const ButtonAdd = styled.button`
   bottom: 20px;
   right: 20px;
   box-shadow: 0 0px 15px -2px hsla(0, 0%, 0%, 0.3);
+  z-index: 1;
 
   transition: transform 0.15s ease-out;
   &:hover {

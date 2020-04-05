@@ -11,6 +11,9 @@ const ButtonPink = styled.button`
   &:hover {
     transform: scale(1.2);
   }
+	&:focus {
+		outline: 0;
+	}
 
   ${({ type }) =>
     type === 'default' &&

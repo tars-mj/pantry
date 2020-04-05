@@ -5,18 +5,21 @@ import ShoppingListPage from './ShoppingListPage';
 import PantryPage from './PantryPage';
 import { routes } from '../routes';
 import MainTemplate from '../templates/MainTemplate';
+import DataProvider from '../context/DataContext';
 
 const Root = () => (
-  <BrowserRouter>
-    <MainTemplate>
-      <Switch>
-        <Route exact path={routes.home} render={() => <Redirect to="/pantry" />} />
-        <Route exact path={routes.login} component={LoginPage} />
-        <Route exact path={routes.pantry} component={PantryPage} />
-        <Route exact path={routes.shoppingList} component={ShoppingListPage} />
-      </Switch>
-    </MainTemplate>
-  </BrowserRouter>
+  <DataProvider>
+    <BrowserRouter>
+      <MainTemplate>
+        <Switch>
+          <Route exact path={routes.home} render={() => <Redirect to="/pantry" />} />
+          <Route exact path={routes.login} component={LoginPage} />
+          <Route exact path={routes.pantry} component={PantryPage} />
+          <Route exact path={routes.shoppingList} component={ShoppingListPage} />
+        </Switch>
+      </MainTemplate>
+    </BrowserRouter>
+  </DataProvider>
 );
 
 export default Root;

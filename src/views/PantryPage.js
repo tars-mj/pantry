@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,7 +14,7 @@ import PageTemplate from '../templates/PageTemplate';
 import ButtonAdd from '../components/moleculs/ButtonAdd';
 import ButtonHeader from '../components/moleculs/ButtonHeader';
 import ButtonPink from '../components/moleculs/ButtonPink';
-
+import { DataContext } from '../context/DataContext';
 const StyledWrapperPage = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -194,27 +194,33 @@ const ProductCard = () => {
   );
 };
 
-const PantryPage = () => (
-  <PageTemplate>
-    <StyledWrapperPage>
-      <StyledHeadingPage>
-        PantryPage
-        <ButtonHeader>
-          <FontAwesomeIcon size="3x" icon={faArrowAltCircleDown} />
-        </ButtonHeader>
-        <ButtonHeader>
-          <FontAwesomeIcon size="3x" icon={faArrowAltCircleUp} />
-        </ButtonHeader>
-      </StyledHeadingPage>
+const PantryPage = () => {
+  const { pantry } = useContext(DataContext);
 
-      <StyledContent>
-        <ProductCard />
-      </StyledContent>
-    </StyledWrapperPage>
-    <ButtonAdd>
-      <FontAwesomeIcon size="3x" color="white" icon={faPlus} />
-    </ButtonAdd>
-  </PageTemplate>
-);
+  return (
+    <PageTemplate>
+      <>
+        <StyledWrapperPage>
+          <StyledHeadingPage>
+            PantryPage {console.log('pantry: ', pantry)}
+            <ButtonHeader>
+              <FontAwesomeIcon size="3x" icon={faArrowAltCircleDown} />
+            </ButtonHeader>
+            <ButtonHeader>
+              <FontAwesomeIcon size="3x" icon={faArrowAltCircleUp} />
+            </ButtonHeader>
+          </StyledHeadingPage>
+
+          <StyledContent>
+            <ProductCard />
+          </StyledContent>
+        </StyledWrapperPage>
+        <ButtonAdd>
+          <FontAwesomeIcon size="3x" color="white" icon={faPlus} />
+        </ButtonAdd>
+      </>
+    </PageTemplate>
+  );
+};
 
 export default PantryPage;
