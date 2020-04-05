@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTh, faList } from '@fortawesome/free-solid-svg-icons';
+import { faTh, faList, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import { routes } from '../routes';
 import { DataContext } from '../context/DataContext';
+import { auth } from '../services/firebase';
 
 const StyledBoardLayout = styled.div`
   margin: 0;
@@ -69,7 +70,7 @@ const ButtonSideBar = styled.div`
   align-items: center;
   position: relative;
   color: ${({ theme }) => theme.white};
-
+  cursor: pointer;
   &:hover {
     transition: all 0.5s;
     background-color: ${({ theme }) => theme.blackHover};
@@ -121,6 +122,9 @@ const UserIcon = styled.div`
 const PageTemplate = ({ children }) => {
   const { pantry, shoppingList } = useContext(DataContext);
 
+  const signOut = () => {
+    auth.signOut();
+  };
   return (
     <StyledBoardLayout>
       <StyledSideBar>
@@ -138,7 +142,9 @@ const PageTemplate = ({ children }) => {
           <Badge>{pantry.length}</Badge>
           <FontAwesomeIcon color="white" icon={faTh} />
         </ButtonSideBar>
-        <UserIcon />
+        <ButtonSideBar area="user" onClick={() => signOut()}>
+          <FontAwesomeIcon color="white" icon={faSignOutAlt} />
+        </ButtonSideBar>
       </StyledSideBar>
       {children}
     </StyledBoardLayout>

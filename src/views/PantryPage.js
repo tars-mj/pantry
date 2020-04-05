@@ -8,6 +8,7 @@ import { DataContext } from '../context/DataContext';
 import Modal from '../components/moleculs/Modal';
 import ProductForm from '../components/moleculs/ProductForm';
 import ProductCard from '../components/organisms/ProductCard';
+import withAuthentication from '../hoc/withAuthentication';
 
 const StyledWrapperPage = styled.div`
   display: grid;
@@ -93,4 +94,4 @@ const PantryPage = () => {
   );
 };
 
-export default PantryPage;
+export default withAuthentication(PantryPage);

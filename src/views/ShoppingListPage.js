@@ -8,6 +8,7 @@ import PageTemplate from '../templates/PageTemplate';
 import ButtonPink from '../components/atoms/ButtonPink';
 import MainButton from '../components/atoms/MainButton';
 import AddToListForm from '../components/moleculs/AddToListForm';
+import withAuthentication from '../hoc/withAuthentication';
 
 const StyledWrapperPage = styled.div`
   display: grid;
@@ -214,4 +215,4 @@ const ShoppingListPage = () => {
   );
 };
 
-export default ShoppingListPage;
+export default withAuthentication(ShoppingListPage);
