@@ -49,9 +49,9 @@ const StyledSideBar = styled.div`
     'user';
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr 60px 2fr 60px 1fr 60px;
+    grid-template-columns: 60px 60px 1fr 60px;
     grid-template-rows: auto;
-    grid-template-areas: '. btn1 btnAdd btn2 . user';
+    grid-template-areas: 'btn1 btn2 . user';
   }
 `;
 
