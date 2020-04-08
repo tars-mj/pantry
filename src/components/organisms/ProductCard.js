@@ -118,7 +118,7 @@ const ActualState = styled.div`
 const LineStatus = styled.div`
   position: absolute;
   height: 100%;
-  border: 2px dotted ${({ theme }) => theme.black};
+  border: 1px solid ${({ theme }) => theme.white};
   top: 0;
   left: ${({ side }) => (side === 'min' ? '30%' : '70%')};
 `;

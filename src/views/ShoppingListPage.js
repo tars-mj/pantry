@@ -135,7 +135,7 @@ const StyledIconCheck = styled.div`
 const StyledMain = styled.div`
   grid-area: main;
   height: 100vh;
-  overflow: scroll;
+  overflow-y: scroll;
 
   @media (max-width: 768px) {
     height: calc(100vh - 100px);

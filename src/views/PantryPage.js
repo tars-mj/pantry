@@ -31,12 +31,13 @@ const StyledHeadingPage = styled.div`
 const StyledContent = styled.div`
   padding: 30px;
   max-width: 100%;
+  height: 100%;
   height: calc(100vh-80px);
   display: grid;
   grid-template-columns: repeat(auto-fit, 270px);
   grid-gap: 50px;
   grid-auto-rows: 270px;
-  overflow: scroll;
+  overflow-y: scroll;
 
   @media (max-width: 768px) {
     height: calc(100vh - 100px - 80px);
