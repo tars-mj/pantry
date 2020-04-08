@@ -14,6 +14,7 @@ const StyledWrapperPage = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 80px 1fr;
+  height: 100vh;
 `;
 
 const StyledHeadingPage = styled.div`
@@ -31,15 +32,14 @@ const StyledHeadingPage = styled.div`
 const StyledContent = styled.div`
   padding: 30px;
   max-width: 100%;
-  height: 100%;
-  height: calc(100vh-80px);
   display: grid;
   grid-template-columns: repeat(auto-fit, 270px);
   grid-gap: 50px;
   grid-auto-rows: 270px;
   overflow-y: scroll;
-
+  height: calc(100vh - 80px);
   @media (max-width: 768px) {
+    overflow-y: scroll;
     height: calc(100vh - 100px - 80px);
   }
 `;
@@ -55,11 +55,8 @@ const StyleContentModal = styled.div`
 
 const StyledMain = styled.div`
   grid-area: main;
-  height: 100vh;
-  overflow: scroll;
-
+  overflow: hidden;
   @media (max-width: 768px) {
-    height: calc(100vh - 100px);
     overflow: hidden;
   }
 `;

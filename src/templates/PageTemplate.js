@@ -12,10 +12,10 @@ const StyledBoardLayout = styled.div`
   margin: 0;
   padding: 0 0 0 0;
   width: 100vw;
-  height: 100vh;
+  height: 99.9vh;
   display: grid;
-
-  grid-template-columns: 100px 1fr;
+  overflow: hidden;
+  grid-template-columns: 100px minmax(0, 1fr);
   grid-template-rows: auto;
   grid-template-areas: 'menu main';
 
@@ -25,8 +25,8 @@ const StyledBoardLayout = styled.div`
   transition: grid-template-columns 0.25s ease-in;
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 100px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) 100px;
     grid-template-areas:
       'main'
       'menu';

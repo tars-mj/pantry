@@ -12,7 +12,7 @@ import withAuthentication from '../hoc/withAuthentication';
 
 const StyledWrapperPage = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: 80px 1fr;
 `;
 
@@ -135,11 +135,10 @@ const StyledIconCheck = styled.div`
 const StyledMain = styled.div`
   grid-area: main;
   height: 100vh;
-  overflow-y: scroll;
+  overflow: hidden;
 
   @media (max-width: 768px) {
     height: calc(100vh - 100px);
-    overflow: hidden;
   }
 `;
 
