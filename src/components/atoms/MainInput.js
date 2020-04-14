@@ -8,7 +8,7 @@ const MainInput = styled.input.attrs((props) => ({
   font-size: ${({ theme }) => theme.fontSize.s};
   color: ${({ theme }) => theme.black};
   width: ${({ width }) => width || '100%'};
-  height: ${({ height }) => height || '35px'};
+  height: ${({ height }) => height || '45px'};
   border: 1px solid ${({ theme, isError }) => (isError ? theme.red : theme.lightOrange)};
   border-radius: 5px;
   caret-color: ${({ theme }) => theme.black};
@@ -16,7 +16,7 @@ const MainInput = styled.input.attrs((props) => ({
   margin-bottom: 5px;
   background-color: ${({ theme }) => theme.white};
   justify-self: self-start;
-  box-shadow: 0px 5px 10px -5px hsla(0, 0%, 0%, 0.2);
+  /* box-shadow: 0px 5px 10px -5px hsla(0, 0%, 0%, 0.2); */
   /* &:hover::placeholder {
     color: ${({ theme }) => theme.black};
     transition: opacity 0.5s ease-out;
@@ -24,7 +24,7 @@ const MainInput = styled.input.attrs((props) => ({
   &::placeholder {
     opacity: 1;
     color: ${({ theme }) => '#ccc'};
-    transition: opacity 0.5s ease-out;
+    transition: opacity 0.25s ease-out;
   }
   &:focus {
     outline: none;

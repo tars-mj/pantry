@@ -27,7 +27,7 @@ const StyledModalCard = styled.div`
   width: 800px;
   height: auto;
   background-color: ${({ theme }) => theme.white};
-  border-radius: 50px;
+  border-radius: 0 0 30px 30px;
   box-shadow: 0 30px 60px -5px hsla(0, 0%, 0%, 0.2);
   display: grid;
   grid-template-columns: 1fr;
@@ -39,7 +39,7 @@ const StyledModalHeader = styled.div`
   width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.lightOrange};
-  border-radius: 50px;
+  border-radius: 30px 30px 0 0;
   padding: 20px;
   display: grid;
   grid-template-columns: auto 40px;
