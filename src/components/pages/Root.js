@@ -4,10 +4,10 @@ import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
 import ShoppingListPage from './ShoppingListPage';
 import PantryPage from './PantryPage';
-import { routes } from '../routes';
+import { routes } from '../../routes';
 import MainTemplate from '../templates/MainTemplate';
-import DataProvider from '../context/DataContext';
-import AuthProvider from '../context/AuthContext';
+import DataProvider from '../../context/DataContext';
+import AuthProvider from '../../context/AuthContext';
 
 const Root = () => (
   <AuthProvider>

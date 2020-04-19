@@ -1,88 +1,8 @@
 import React, { createContext, useReducer, useEffect } from 'react';
+import { db, auth } from '../services/firebase';
+import { initialState } from '../utils/initialState';
 
 export const DataContext = createContext();
-
-const sampleData = {
-  pantry: [
-    {
-      id: 10001,
-      productName: 'Mąka',
-      unit: 'kg',
-      min: 5,
-      max: 10,
-      quantity: 6,
-    },
-    {
-      id: 10002,
-      productName: 'Cukier',
-      unit: 'kg',
-      min: 3,
-      max: 8,
-      quantity: 1,
-    },
-    {
-      id: 10003,
-      productName: 'Czosnek',
-      unit: 'szt',
-      min: 5,
-      max: 12,
-      quantity: 9,
-    },
-    {
-      id: 10004,
-      productName: 'Mleko',
-      unit: 'litr',
-      min: 2,
-      max: 5,
-      quantity: 6,
-    },
-    {
-      id: 10005,
-      productName: 'Woda gazowana',
-      unit: 'litr',
-      min: 6,
-      max: 12,
-      quantity: 2,
-    },
-  ],
-  shoppingList: [
-    {
-      id: 10002,
-      productName: 'Cukier',
-      quantity: 5,
-      unit: 'kg',
-    },
-    {
-      id: 10005,
-      productName: 'Woda gazowana',
-      quantity: 7,
-      unit: 'litr',
-    },
-  ],
-  selectedProducts: [],
-};
-
-// Initial state
-const initialState = () => {
-  if (JSON.parse(window.localStorage.getItem('pantry')) === null) {
-    return sampleData;
-  }
-  return {
-    isLoading: false,
-    pantry: JSON.parse(window.localStorage.getItem('pantry')) || [],
-    shoppingList: JSON.parse(window.localStorage.getItem('shoppingList')) || [],
-    selectedProducts: JSON.parse(window.localStorage.getItem('selectedProducts')) || [],
-  };
-};
-
-// if (typeof window.localStorage !== 'undefined') {
-//   initialState = {
-//     pantry: JSON.parse(window.localStorage.getItem('pantry')),
-//     shoppingList: JSON.parse(window.localStorage.getItem('shoppingList')),
-//     selectedProducts: JSON.parse(window.localStorage.getItem('selectedProducts')),
-//     isLoading: false,
-//   };
-// }
 
 // Constants
 const SET_AUTHORIZATION = 'SET_AUTHORIZATION';
@@ -189,14 +109,14 @@ const reducer = (state, action) => {
         ],
       };
     case INITIAL_STATE:
-      return { ...state, [action.payload.name]: action.payload.stateApp };
+      return { ...state, ...action.payload };
     default:
       throw new Error();
   }
 };
 
 const DataProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState());
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   // Actions
   const setQuantityProductPantry = ({ id, value }) => {
@@ -301,22 +221,38 @@ const DataProvider = ({ children }) => {
     });
   };
 
-  const setInitialState = ({ name, stateApp }) => {
+  const setInitialState = ({ isLoading = false, pantry, selectedProducts, shoppingList }) => {
     dispatch({
       type: INITIAL_STATE,
       payload: {
-        name,
-        stateApp,
+        isLoading,
+        pantry,
+        selectedProducts,
+        shoppingList,
       },
     });
   };
 
   useEffect(() => {
-    if (typeof window.localStorage !== 'undefined') {
-      window.localStorage.setItem('pantry', JSON.stringify(state.pantry));
-      window.localStorage.setItem('shoppingList', JSON.stringify(state.shoppingList));
-      window.localStorage.setItem('selectedProducts', JSON.stringify(state.selectedProducts));
-    }
+    const saveFirestore = async () => {
+      if (!auth.currentUser) {
+        return;
+      }
+      const data = await db.collection('data').doc(auth.currentUser.uid).get();
+      if (data.data() !== 'undefined') {
+        db.collection('data')
+          .doc(auth.currentUser.uid)
+          .set({
+            pantry: state.pantry,
+            shoppingList: state.shoppingList,
+            selectedProducts: state.selectedProducts,
+          })
+          .catch((error) => {
+            console.error('Error adding document: ', error);
+          });
+      }
+    };
+    saveFirestore();
   }, [state.pantry, state.shoppingList, state.selectedProducts]);
 
   return (
@@ -336,6 +272,7 @@ const DataProvider = ({ children }) => {
         clearShoppingList,
         removeFromShoppingList,
         updateQuantityOnList,
+        setInitialState,
       }}
     >
       {children}

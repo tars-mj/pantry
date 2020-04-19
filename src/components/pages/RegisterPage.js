@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import LoginForm from '../components/moleculs/LoginForm';
-import { routes } from '../routes';
+import LoginForm from '../moleculs/LoginForm';
+import { routes } from '../../routes';
 
 const StyledWrapper = styled.div`
   width: 100vw;
