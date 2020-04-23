@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import MainInput from '../atoms/MainInput';
-import MainButton from '../atoms/MainButton';
-import { DataContext } from '../../context/DataContext';
+import MainInput from 'components/atoms/MainInput';
+import MainButton from 'components/atoms/MainButton';
+import { DataContext } from 'context/DataContext';
 
 const ProductForm = ({ productToEdit, onCloseModal }) => {
   const { handleSubmit, register, errors, getValues } = useForm();

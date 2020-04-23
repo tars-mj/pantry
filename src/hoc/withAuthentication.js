@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react';
-import useAuthUser from '../hooks/useAuthUser';
-import { DataContext } from '../context/DataContext';
-import { db, auth } from '../services/firebase';
-import { initialState } from '../utils/initialState';
+import useAuthUser from 'hooks/useAuthUser';
+import { DataContext } from 'context/DataContext';
+import { db, auth } from 'services/firebase';
+import { initialState } from 'utils/initialState';
 
 const withAuthentication = (WrappedComponent) => (props) => {
   const { pantry, setInitialState } = useContext(DataContext);

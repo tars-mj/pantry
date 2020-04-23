@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import { auth } from '../services/firebase';
-import { routes } from '../routes';
+import { AuthContext } from 'context/AuthContext';
+import { auth } from 'services/firebase';
+import { routes } from 'routes';
 
 export default () => {
   const { setLogin, setLogout } = useContext(AuthContext);

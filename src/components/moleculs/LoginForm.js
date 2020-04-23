@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import MainInput from '../atoms/MainInput';
-import MainButton from '../atoms/MainButton';
-import { AuthContext } from '../../context/AuthContext';
-import { auth, db } from '../../services/firebase';
-import { routes } from '../../routes';
+import MainInput from 'components/atoms/MainInput';
+import MainButton from 'components/atoms/MainButton';
+import { AuthContext } from 'context/AuthContext';
+import { auth } from 'services/firebase';
+import { routes } from 'routes';
 
 const StyledBtn = styled.div`
   width: 100%;

@@ -1,7 +1,7 @@
 import React, { createContext, useReducer, useEffect } from 'react';
-import { db, auth } from '../services/firebase';
-import { initialState } from '../utils/initialState';
-import { reducer } from '../reducers';
+import { db, auth } from 'services/firebase';
+import { initialState } from 'utils/initialState';
+import { reducer } from 'reducers';
 import {
   setQuantityProductPantry,
   removeProductPantry,
@@ -14,7 +14,7 @@ import {
   removeFromShoppingList,
   updateQuantityOnList,
   setInitialState,
-} from '../actions';
+} from 'actions';
 
 export const DataContext = createContext();
 

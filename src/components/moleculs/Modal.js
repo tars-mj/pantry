@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTh, faTimes } from '@fortawesome/free-solid-svg-icons';
-import ButtonPink from '../atoms/ButtonPink';
-import MainButton from '../atoms/MainButton';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import ButtonPink from 'components/atoms/ButtonPink';
 
 const StyledModalWrapper = styled.div`
   background-color: white;

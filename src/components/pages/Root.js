@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import LoginPage from './LoginPage';
-import RegisterPage from './RegisterPage';
-import ShoppingListPage from './ShoppingListPage';
-import PantryPage from './PantryPage';
-import { routes } from '../../routes';
-import MainTemplate from '../templates/MainTemplate';
-import DataProvider from '../../context/DataContext';
-import AuthProvider from '../../context/AuthContext';
+import { routes } from 'routes';
+import MainTemplate from 'components/templates/MainTemplate';
+import AuthProvider from 'context/AuthContext';
+import DataProvider from 'context/DataContext';
+import LoginPage from 'components/pages/LoginPage';
+import RegisterPage from 'components/pages/RegisterPage';
+import ShoppingListPage from 'components/pages/ShoppingListPage';
+import PantryPage from 'components/pages/PantryPage';
 
 const Root = () => (
   <AuthProvider>

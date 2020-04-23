@@ -2,15 +2,13 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import PageTemplate from '../templates/PageTemplate';
-import ButtonAdd from '../atoms/ButtonAdd';
-import { DataContext } from '../../context/DataContext';
-import Modal from '../moleculs/Modal';
-import ProductForm from '../moleculs/ProductForm';
-import ProductCard from '../organisms/ProductCard';
-import withAuthentication from '../../hoc/withAuthentication';
-import { db, auth } from '../../services/firebase';
-import { sampleData } from '../../utils/sampleData';
+import PageTemplate from 'components/templates/PageTemplate';
+import ButtonAdd from 'components/atoms/ButtonAdd';
+import { DataContext } from 'context/DataContext';
+import Modal from 'components/moleculs/Modal';
+import ProductForm from 'components/moleculs/ProductForm';
+import ProductCard from 'components/organisms/ProductCard';
+import withAuthentication from 'hoc/withAuthentication';
 
 const StyledWrapperPage = styled.div`
   display: grid;

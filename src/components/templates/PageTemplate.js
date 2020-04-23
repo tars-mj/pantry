@@ -4,9 +4,9 @@ import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTh, faList, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
-import { routes } from '../../routes';
-import { DataContext } from '../../context/DataContext';
-import { auth } from '../../services/firebase';
+import { routes } from 'routes';
+import { DataContext } from 'context/DataContext';
+import { auth } from 'services/firebase';
 
 const StyledBoardLayout = styled.div`
   margin: 0;

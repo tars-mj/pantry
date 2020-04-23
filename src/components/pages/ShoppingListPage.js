@@ -2,13 +2,13 @@ import React, { useState, useContext } from 'react';
 import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faEdit, faTrashAlt, faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
-import { DataContext } from '../../context/DataContext';
-import Modal from '../moleculs/Modal';
-import PageTemplate from '../templates/PageTemplate';
-import ButtonPink from '../atoms/ButtonPink';
-import MainButton from '../atoms/MainButton';
-import AddToListForm from '../moleculs/AddToListForm';
-import withAuthentication from '../../hoc/withAuthentication';
+import { DataContext } from 'context/DataContext';
+import Modal from 'components/moleculs/Modal';
+import PageTemplate from 'components/templates/PageTemplate';
+import ButtonPink from 'components/atoms/ButtonPink';
+import MainButton from 'components/atoms/MainButton';
+import AddToListForm from 'components/moleculs/AddToListForm';
+import withAuthentication from 'hoc/withAuthentication';
 
 const StyledWrapperPage = styled.div`
   display: grid;

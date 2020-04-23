@@ -10,12 +10,12 @@ import {
   faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 
-import ButtonPink from '../atoms/ButtonPink';
-import { DataContext } from '../../context/DataContext';
-import Modal from '../moleculs/Modal';
-import MainButton from '../atoms/MainButton';
-import ProductForm from '../moleculs/ProductForm';
-import AddToListForm from '../moleculs/AddToListForm';
+import ButtonPink from 'components/atoms/ButtonPink';
+import { DataContext } from 'context/DataContext';
+import Modal from 'components/moleculs/Modal';
+import MainButton from 'components/atoms/MainButton';
+import ProductForm from 'components/moleculs/ProductForm';
+import AddToListForm from 'components/moleculs/AddToListForm';
 
 const StyleContentModal = styled.div`
   width: 100%;
